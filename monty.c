@@ -5,6 +5,7 @@ int main(int argc, char **argv)
     char *line = NULL, *opcode = NULL;
     size_t len = 0;
     unsigned int line_number = 0;
+    stack_t *stack = NULL;
 
     if (argc != 2)
     {
@@ -26,6 +27,7 @@ int main(int argc, char **argv)
         if (strncmp(opcode, "push", len) == 0)
         {
             fprintf(stdout, "%s\n", opcode);
+            push(&stack, line_number);
         }
     }
 
