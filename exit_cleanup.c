@@ -8,7 +8,7 @@
  */
 void exit_cleanup(int status, stack_t **stack, stack_t *newNode)
 {
-    free(newNode);
-    free_stack(*stack);
-    exit(status);
+	free(newNode);
+	free_stack(*stack);
+	exit(status);
 }

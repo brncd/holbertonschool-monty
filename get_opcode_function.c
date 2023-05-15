@@ -7,22 +7,22 @@
  */
 void (*get_opcode_function(char *opcode))(stack_t **stack, unsigned int line_number)
 {
-    instruction_t instructions[] = {
-        {"push", push},
-        {"pall", pall},
-        {"pint", pint},
-        {"swap", swap},
-        {"nop", nop},
-        {NULL, NULL},
-    };
+	instruction_t instructions[] = {
+		{"push", push},
+		{"pall", pall},
+		{"pint", pint},
+		{"swap", swap},
+		{"nop", nop},
+		{NULL, NULL},
+	};
 
-    int i = 0;
+	int i = 0;
 
-    for (i = 0; instructions[i].opcode != NULL; i++)
-    {
-        if (strcmp(opcode, instructions[i].opcode) == 0)
-            return instructions[i].f;
-    }
+	for (i = 0; instructions[i].opcode != NULL; i++)
+	{
+		if (strcmp(opcode, instructions[i].opcode) == 0)
+			return instructions[i].f;
+	}
 
-    return NULL;
+	return NULL;
 }
