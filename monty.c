@@ -16,30 +16,33 @@ int main(int argc, char **argv)
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	FILE *file = fopen(argv[1], "r");
 	if (file == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	while (getline(&line, &len, file) != -1)
 	{
 		line_number++;
 		char *opcode = strtok(line, " \t\n");
+
 		if (opcode != NULL && opcode[0] != '#')
 		{
-			void (*op_func)(stack_t **stack, unsigned int line_number) = get_opcode_function(opcode);
+			void (*op_func)(stack_t **stack,
+			 unsigned int line_number) = get_opcode_function(opcode);
 			if (op_func == NULL)
 			{
-				fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+				fprintf(stderr, "L%u: unknown instruction %s\n",
+				 line_number, opcode);
 				free(line);
 				fclose(file);
 				free_stack(stack);
-				return EXIT_FAILURE;
+				return (EXIT_FAILURE);
 			}
 			op_func(&stack, line_number);
 		}
@@ -48,5 +51,5 @@ int main(int argc, char **argv)
 	free(line);
 	fclose(file);
 	free_stack(stack);
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
