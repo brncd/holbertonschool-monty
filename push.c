@@ -15,7 +15,7 @@ void push(stack_t **stack, unsigned int line_number)
     if (!numchar)
     {
         fprintf(stderr, "L%u: usage: push integer\n", line_number);
-        exit(EXIT_FAILURE);
+        exit_cleanup(EXIT_FAILURE, stack, newNode);
     }
 
     char* endptr;
@@ -23,14 +23,14 @@ void push(stack_t **stack, unsigned int line_number)
     if (*endptr != '\0')
     {
         fprintf(stderr, "L%u: usage: push integer\n", line_number);
-        exit(EXIT_FAILURE);
+        exit_cleanup(EXIT_FAILURE, stack, newNode);
     }
 
     newNode = malloc(sizeof(stack_t));
     if (!newNode)
     {
         fprintf(stderr, "Error: unable to allocate memory\n");
-        exit(EXIT_FAILURE);
+        exit_cleanup(EXIT_FAILURE, stack, newNode);
     }
 
     newNode->n = num;
