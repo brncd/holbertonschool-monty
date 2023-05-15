@@ -2,7 +2,7 @@
 
 /**
  * get_opcode_function - Gets the corresponding function for an opcode.
- * @opcode: Value of the opcode
+ * @line_number: Line number
  * Return: The corresponding function or NULL.
  */
 void (*get_opcode_function(char *opcode))(stack_t **stack,

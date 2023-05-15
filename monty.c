@@ -26,14 +26,14 @@ int process_file(FILE *file, stack_t **stack)
 				fprintf(stderr, "L%u: unknown instruction %s\n",
 					line_number, opcode);
 				free(line);
-				return EXIT_FAILURE;
+				return (EXIT_FAILURE);
 			}
 			op_func(stack, line_number);
 		}
 	}
 
 	free(line);
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
 
 /**
@@ -47,14 +47,14 @@ int run_monty(int argc, char **argv)
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	FILE *file = fopen(argv[1], "r");
 	if (file == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	stack_t *stack = NULL;
@@ -76,5 +76,5 @@ int main(int argc, char **argv)
 {
 	int exit_status = run_monty(argc, argv);
 
-	return exit_status;
+	return (exit_status);
 }
