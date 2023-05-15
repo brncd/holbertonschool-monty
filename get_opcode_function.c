@@ -6,7 +6,7 @@
  * Return: The corresponding function or NULL.
  */
 void (*get_opcode_function(char *opcode))(stack_t **stack,
- unsigned int line_number)
+unsigned int line_number)
 {
 	instruction_t instructions[] = {
 		{"push", push},

@@ -19,6 +19,7 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 
 	char *endptr;
+
 	num = strtol(numchar, &endptr, 10);
 
 	if (*endptr != '\0')
