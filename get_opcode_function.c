@@ -5,7 +5,8 @@
  * @opcode: Value of the opcode
  * Return: The corresponding function or NULL.
  */
-void (*get_opcode_function(char *opcode))(stack_t **stack, unsigned int line_number)
+void (*get_opcode_function(char *opcode))(stack_t **stack,
+ unsigned int line_number)
 {
 	instruction_t instructions[] = {
 		{"push", push},
@@ -21,8 +22,8 @@ void (*get_opcode_function(char *opcode))(stack_t **stack, unsigned int line_num
 	for (i = 0; instructions[i].opcode != NULL; i++)
 	{
 		if (strcmp(opcode, instructions[i].opcode) == 0)
-			return instructions[i].f;
+			return (instructions[i].f);
 	}
 
-	return NULL;
+	return (NULL);
 }
