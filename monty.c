@@ -1,8 +1,14 @@
 #include "monty.h"
 
+/**
+ * main - Entry point of the program
+ * @argc: Number of command-line arguments
+ * @argv: Array of command-line arguments
+ * Return: void
+ */
 int main(int argc, char **argv)
 {
-    char *line = NULL, *opcode = NULL;
+    char *line = NULL;
     size_t len = 0;
     unsigned int line_number = 0;
     stack_t *stack = NULL;
@@ -10,29 +16,36 @@ int main(int argc, char **argv)
     if (argc != 2)
     {
         fprintf(stderr, "USAGE: monty file\n");
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
 
-    FILE *file_pointer = fopen(argv[1], "r");
-    if (file_pointer == NULL)
+    FILE *file = fopen(argv[1], "r");
+    if (file == NULL)
     {
         fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
 
-    while (getline(&line, &len, file_pointer) != -1)
+    while (getline(&line, &len, file) != -1)
     {
         line_number++;
-        opcode = strtok(line, " \n\t");
-        if (strncmp(opcode, "push", len) == 0)
+        char *opcode = strtok(line, " \t\n");
+        if (opcode != NULL && opcode[0] != '#')
         {
-            fprintf(stdout, "%s\n", opcode);
-            push(&stack, line_number);
+            void (*op_func)(stack_t **stack, unsigned int line_number) = get_opcode_function(opcode);
+            if (op_func == NULL)
+            {
+                fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+                free(line);
+                fclose(file);
+                return EXIT_FAILURE;
+            }
+            op_func(&stack, line_number);
         }
     }
 
-    fclose(file_pointer);
-    if (line != NULL)
-        free(line);
-    return (EXIT_SUCCESS);
+    free(line);
+    fclose(file);
+
+    return EXIT_SUCCESS;
 }

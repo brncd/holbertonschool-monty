@@ -1,6 +1,11 @@
 #include "monty.h"
 
-int push(stack_t **stack, unsigned int line_number)
+/**
+ * push - pushes an element to the stack
+ * @stack: Doubly linked list.
+ * @line_number: Number of the current line.
+ */
+void push(stack_t **stack, unsigned int line_number)
 {
     char* numchar = NULL;
     int num = 0;
@@ -10,16 +15,22 @@ int push(stack_t **stack, unsigned int line_number)
     if (!numchar)
     {
         fprintf(stderr, "L%u: usage: push integer\n", line_number);
-        return 1;
+        exit(EXIT_FAILURE);
     }
 
-    num = atoi(numchar);
+    char* endptr;
+    num = strtol(numchar, &endptr, 10);
+    if (*endptr != '\0')
+    {
+        fprintf(stderr, "L%u: usage: push integer\n", line_number);
+        exit(EXIT_FAILURE);
+    }
 
     newNode = malloc(sizeof(stack_t));
     if (!newNode)
     {
         fprintf(stderr, "Error: unable to allocate memory\n");
-        return 1;
+        exit(EXIT_FAILURE);
     }
 
     newNode->n = num;
@@ -30,8 +41,5 @@ int push(stack_t **stack, unsigned int line_number)
     {
         (*stack)->prev = newNode;
     }
-    fprintf(stdout, "Node %d\n", newNode->n);
     *stack = newNode;
-
-    return 0;
 }
