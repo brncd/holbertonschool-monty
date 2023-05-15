@@ -14,6 +14,7 @@ unsigned int line_number)
 		{"pint", pint},
 		{"swap", swap},
 		{"nop", nop},
+		{"pop", pop},
 		{NULL, NULL},
 	};
 

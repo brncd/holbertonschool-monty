@@ -44,5 +44,6 @@ void swap(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t *stack);
 void exit_cleanup(int status, stack_t **stack, stack_t *newNode);
 void (*get_opcode_function(char *opcode))(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
 
 #endif
